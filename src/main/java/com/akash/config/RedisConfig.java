@@ -19,16 +19,17 @@ public class RedisConfig {
   @Value("${redisHosts:redis://localhost:6379,redis://localhost:6380,redis://localhost:6381}")
   private String redisHosts;
 
-  @Bean
+  @Bean(destroyMethod = "shutdown")
   public RedissonClient redisson() {
     final String[] redisHostSplit = redisHosts.split(",");
     final Config config = new Config();
-    config.useClusterServers().addNodeAddress(redisHostSplit);
+    config.useSingleServer().setAddress(redisHostSplit[0]);
+    // config.useClusterServers().addNodeAddress(redisHostSplit);
     config.setExecutor(Executors.newFixedThreadPool(5)); // default is 16
     return Redisson.create(config);
   }
 
-  @Bean
+  @Bean(destroyMethod = "shutdown")
   public RScheduledExecutorService rScheduledExecutorService() {
 
     final WorkerOptions workerOptions =
