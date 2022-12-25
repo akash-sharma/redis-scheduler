@@ -1,5 +1,6 @@
 package com.akash.config;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.redisson.Redisson;
 import org.redisson.api.ExecutorOptions;
 import org.redisson.api.RScheduledExecutorService;
@@ -9,7 +10,6 @@ import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -45,7 +45,7 @@ public class RedisConfig {
             5L,
             TimeUnit.SECONDS,
             new LinkedBlockingQueue(),
-            new CustomizableThreadFactory(threadPoolName));
+            new ThreadFactoryBuilder().setNameFormat(threadPoolName).setDaemon(true).build());
 
     final WorkerOptions workerOptions =
         WorkerOptions.defaults()
