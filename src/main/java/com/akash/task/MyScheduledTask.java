@@ -5,7 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 
-public class MyScheduledTask implements Runnable {
+public class MyScheduledTask implements Runnable, Serializable {
+
+  private static final long serialVersionUID = 9157644650L;
 
   private static final Logger LOGGER = LogManager.getLogger(MyScheduledTask.class);
 
