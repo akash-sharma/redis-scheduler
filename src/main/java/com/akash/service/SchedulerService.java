@@ -5,6 +5,7 @@ import com.akash.task.MyScheduledTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.redisson.api.RScheduledExecutorService;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class SchedulerService {
   private static final Logger LOGGER = LogManager.getLogger(SchedulerService.class);
 
   @Autowired private RScheduledExecutorService executorService;
+
+  @Autowired private RedissonClient redissonClient;
 
   public void scheduleWithFixedDelay() {
     executorService.scheduleWithFixedDelay(new MyScheduledTask(), 0, 10, TimeUnit.SECONDS);
