@@ -35,7 +35,7 @@ public class RedisConfig {
     return Redisson.create(config);
   }
 
-  @Bean(destroyMethod = "shutdown")
+  @Bean(destroyMethod = "")
   public RScheduledExecutorService rScheduledExecutorService() {
 
     final ThreadPoolExecutor threadPoolExecutor =

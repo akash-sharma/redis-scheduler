@@ -10,7 +10,7 @@ https://www.linkedin.com/pulse/springboot-redissons-distributed-task-engine-zhif
 
 https://github.com/redisson/redisson/issues/3441
 
-
+https://github.com/redisson/redisson/issues/2560
 
 ## Output :
 
