@@ -55,7 +55,11 @@
 	          {
 	            "ref": "RollingLogFile-Appender",
 	            "level": "info"
-	          }
+	          },
+              {
+                "ref": "Console-Appender",
+                "level": "info"
+              }
 	        ]
 	      }
       	],
