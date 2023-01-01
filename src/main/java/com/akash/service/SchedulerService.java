@@ -5,10 +5,10 @@ import com.akash.task.MyScheduledTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.redisson.api.RScheduledExecutorService;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -18,10 +18,18 @@ public class SchedulerService {
 
   @Autowired private RScheduledExecutorService executorService;
 
-  @Autowired private RedissonClient redissonClient;
+  @PostConstruct
+  public void init() {
+    LOGGER.info("Initiating Job scheduling...");
+    scheduleWithFixedDelay();
+  }
 
   public void scheduleWithFixedDelay() {
-    executorService.scheduleWithFixedDelay(new MyScheduledTask(), 0, 10, TimeUnit.SECONDS);
+    final int taskCount = executorService.getTaskCount();
+    LOGGER.info("taskCount in SchedulerService : {}", taskCount);
+    if (taskCount == 0) {
+      executorService.scheduleWithFixedDelay(new MyScheduledTask(), 0, 10, TimeUnit.SECONDS);
+    }
   }
 
   public void submit() {

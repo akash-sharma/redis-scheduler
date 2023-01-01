@@ -22,7 +22,6 @@ public class DemoController {
 
     LOGGER.info("Trigger api executed");
     schedulerService.submit();
-    schedulerService.scheduleWithFixedDelay();
     return new ResponseEntity("Trigger api executed", HttpStatus.OK);
   }
 }
